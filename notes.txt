@@ -1,0 +1,17 @@
+Analyze the project and identify all places where exceptions other than BrakeAppException are thrown.
+
+Check for:
+- IllegalArgumentException
+- RuntimeException
+- EntityNotFoundException
+- ResponseStatusException
+- Any other custom or generic exceptions
+
+For each occurrence:
+1. File name
+2. Line number
+3. Exception being thrown
+4. Whether it should be replaced with BrakeAppException based on the existing project pattern.
+
+Do not modify any code.
+Create only an implementation plan.
