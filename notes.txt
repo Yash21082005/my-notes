@@ -1,7 +1,2 @@
-ProblemDetails problem = ProblemDetails.forNotFound();
-problem.setTitle("404");
-problem.setDetail(
-    "Appointment with LAN " + request.getAgreementNo() + " not found"
-);
-
-throw new BrakeAppException(problem);
+import com.ltfs.brake.collections.domain.ProblemDetails;
+import com.ltfs.brake.collections.exceptions.BrakeAppException;
