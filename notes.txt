@@ -1,2 +1,4 @@
-import com.ltfs.brake.collections.domain.ProblemDetails;
-import com.ltfs.brake.collections.exceptions.BrakeAppException;
+ProblemDetails prob = ProblemDetails.forBadRequest();
+prob.setDetail("Agreement number must be provided for update.");
+
+throw new BrakeAppException(prob);
