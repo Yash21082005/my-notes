@@ -1,4 +1,8 @@
-ProblemDetails prob = ProblemDetails.forBadRequest();
-prob.setDetail("Invalid request type: " + request.getRequestType());
+if (decodedCombinedBytes.length < GCM_IV_LENGTH) {
 
-throw new BrakeAppException(prob);
+    ProblemDetails problem = ProblemDetails.forBadRequest();
+    problem.setDetail("Received data is too short to contain IV.");
+    problem.setTitle("400");
+
+    throw new BrakeAppException(problem);
+}
