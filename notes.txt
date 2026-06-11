@@ -1,6 +1,8 @@
-catch (NoSuchAlgorithmException | InvalidKeyException e) {
+catch (Exception e) {
+    log.error("Decryption failed: {}", e.getMessage());
+
     ProblemDetails problem = ProblemDetails.forInternalError();
-    problem.setDetail("Failed to generate HMAC hash");
+    problem.setDetail("Decryption failed");
     problem.setCause(e.getMessage());
 
     throw new BrakeAppException(problem);
