@@ -1,6 +1,4 @@
-ProblemDetails prob = ProblemDetails.forNotFound();
-prob.setDetail(
-    "Appointment with LAN " + request.getAgreementNo() + " not found"
-);
+ProblemDetails prob = ProblemDetails.forBadRequest();
+prob.setDetail("Invalid request type: " + request.getRequestType());
 
 throw new BrakeAppException(prob);
