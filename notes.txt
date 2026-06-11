@@ -1,4 +1,4 @@
 ProblemDetails prob = ProblemDetails.forBadRequest();
-prob.setDetail("Invalid request type: " + request.getRequestType());
+prob.setDetail("Agreement number must be provided for update.");
 
 throw new BrakeAppException(prob);
