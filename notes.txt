@@ -1,4 +1,6 @@
-ProblemDetails prob = ProblemDetails.forBadRequest();
-prob.setDetail("Agreement number must be provided for update.");
+ProblemDetails prob = ProblemDetails.forNotFound();
+prob.setDetail(
+    "Appointment with LAN " + request.getAgreementNo() + " not found"
+);
 
 throw new BrakeAppException(prob);
