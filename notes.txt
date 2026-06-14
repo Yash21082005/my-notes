@@ -1,6 +1,9 @@
-if (decodedCombinedBytes.length < GCM_IV_LENGTH) {
-    ProblemDetails problem = ProblemDetails.forBadRequest();
-    problem.setDetail("Received data is too short to contain IV.");
-    problem.setTitle("400");
+catch (JsonProcessingException e) {
+    log.error("Error converting map to JSON string: " + e.getMessage());
+
+    ProblemDetails problem = ProblemDetails.forInternalError();
+    problem.setDetail("Failed to generate JSON for DMS request");
+    problem.setTitle("500");
+
     throw new BrakeAppException(problem);
 }
