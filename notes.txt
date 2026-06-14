@@ -1,9 +1,6 @@
-catch (Exception e) {
-    log.error("Decryption failed: {}", e.getMessage());
-
-    ProblemDetails problem = ProblemDetails.forInternalError();
-    problem.setDetail("Decryption failed");
-    problem.setCause(e.getMessage());
-
+if (decodedCombinedBytes.length < GCM_IV_LENGTH) {
+    ProblemDetails problem = ProblemDetails.forBadRequest();
+    problem.setDetail("Received data is too short to contain IV.");
+    problem.setTitle("400");
     throw new BrakeAppException(problem);
 }
