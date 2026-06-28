@@ -1,3 +1,13 @@
+HHi Nimesh,
+
+Quick update from my side:
+
+• I have completed the Global Exception Handling changes for the **Collections**, **Authentication Service**, **Scheduler Module**, and **User Login/Register** modules. The changes have been pushed, and I have shared the PR links with my senior for the code merge process.
+
+• I have also completed the High Availability research for the Brake application. I analyzed the current architecture, identified the Single Points of Failure, researched PostgreSQL database-level High Availability as suggested, compared it with our current MSSQL setup, and prepared a presentation covering the proposed HA architecture and implementation approach.
+
+I'm ready to walk through the findings whenever you're available.
+
 https://docs.google.com/presentation/d/1OUTooz5kx04OQwWgqUhTTKAo3Ub2afBr/edit?usp=sharing&ouid=100271126326820751612&rtpof=true&sd=true
 
 
