@@ -1,1 +1,4 @@
 "This slide shows my proposed High Availability architecture for the Brake application. The goal is to eliminate single points of failure and ensure the application continues to operate even if a server, service, or database instance fails."
+
+
+"Write Ahead Logging ensures that every committed transaction is recorded before being applied to the database. The WAL records are streamed to replicas, keeping them synchronized with the primary database."
