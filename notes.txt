@@ -1,9 +1,1 @@
-catch (JsonProcessingException e) {
-    log.error("Error converting map to JSON string: " + e.getMessage());
-
-    ProblemDetails problem = ProblemDetails.forInternalError();
-    problem.setDetail("Failed to generate JSON for DMS request");
-    problem.setTitle("500");
-
-    throw new BrakeAppException(problem);
-}
+"This slide shows my proposed High Availability architecture for the Brake application. The goal is to eliminate single points of failure and ensure the application continues to operate even if a server, service, or database instance fails."
