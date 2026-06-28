@@ -5,3 +5,5 @@
 
 
 "Although this research focuses on PostgreSQL, Microsoft SQL Server provides similar High Availability capabilities using Always On Availability Groups. The overall concepts of replication, automatic failover, and redundancy remain the same."
+
+"This slide explains how High Availability is achieved in PostgreSQL. The Primary database handles all write operations, while one or more replicas stay synchronized using Write-Ahead Log (WAL) Streaming Replication. Patroni continuously monitors the Primary and automatically promotes a replica if the Primary fails. HAProxy ensures applications are always connected to the active Primary without manual intervention, and PgBouncer improves scalability through connection pooling. Read replicas handle read-heavy workloads, reducing load on the Primary. Although the Brake application currently uses Microsoft SQL Server, similar High Availability concepts are available through SQL Server Always On Availability Groups."
