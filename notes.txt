@@ -2,3 +2,6 @@
 
 
 "Write Ahead Logging ensures that every committed transaction is recorded before being applied to the database. The WAL records are streamed to replicas, keeping them synchronized with the primary database."
+
+
+"Although this research focuses on PostgreSQL, Microsoft SQL Server provides similar High Availability capabilities using Always On Availability Groups. The overall concepts of replication, automatic failover, and redundancy remain the same."
