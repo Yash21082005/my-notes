@@ -1,3 +1,6 @@
+https://docs.google.com/presentation/d/1OUTooz5kx04OQwWgqUhTTKAo3Ub2afBr/edit?usp=sharing&ouid=100271126326820751612&rtpof=true&sd=true
+
+
 "This slide shows my proposed High Availability architecture for the Brake application. The goal is to eliminate single points of failure and ensure the application continues to operate even if a server, service, or database instance fails."
 
 
