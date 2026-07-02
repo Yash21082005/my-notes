@@ -1,12 +1,1 @@
-Analyze the entire Collections module and migrate it from Microsoft SQL Server to PostgreSQL.
-
-Requirements:
-- Convert all SQL Server specific SQL to PostgreSQL.
-- Update all native queries.
-- Update entity mappings if required.
-- Replace SQL Server JDBC driver with PostgreSQL.
-- Update application.yml/properties.
-- Update Flyway/Liquibase migrations if present.
-- Fix compile errors caused by migration.
-- Do not change any business logic.
-- At the end, give me a summary of modified files.
+Hi Sir, for the local PostgreSQL HA POC, should I install PostgreSQL, Patroni, HAProxy, PgBouncer and etcd directly on Windows, or is there a preferred setup you'd like me to use, such as Docker Desktop or a Virtual Machine?
