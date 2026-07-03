@@ -1,35 +1,51 @@
-version: '3.9'
-
 services:
 
   etcd1:
     image: quay.io/coreos/etcd:v3.5.18
     container_name: etcd1
+    hostname: etcd1
     command: >
       etcd
-      --name etcd1
-      --initial-advertise-peer-urls http://etcd1:2380
-      --listen-peer-urls http://0.0.0.0:2380
-      --listen-client-urls http://0.0.0.0:2379
-      --advertise-client-urls http://etcd1:2379
-      --initial-cluster-token patroni
-      --initial-cluster etcd1=http://etcd1:2380
-      --initial-cluster-state new
+      --name=etcd1
+      --data-dir=/etcd-data
+      --listen-peer-urls=http://0.0.0.0:2380
+      --listen-client-urls=http://0.0.0.0:2379
+      --advertise-client-urls=http://etcd1:2379
+      --initial-advertise-peer-urls=http://etcd1:2380
+      --initial-cluster=etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380
+      --initial-cluster-state=new
+      --initial-cluster-token=patroni
     ports:
       - "2379:2379"
 
-  postgres1:
-    image: postgres:17
-    container_name: postgres1
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: brake
-    ports:
-      - "5432:5432"
+  etcd2:
+    image: quay.io/coreos/etcd:v3.5.18
+    container_name: etcd2
+    hostname: etcd2
+    command: >
+      etcd
+      --name=etcd2
+      --data-dir=/etcd-data
+      --listen-peer-urls=http://0.0.0.0:2380
+      --listen-client-urls=http://0.0.0.0:2379
+      --advertise-client-urls=http://etcd2:2379
+      --initial-advertise-peer-urls=http://etcd2:2380
+      --initial-cluster=etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380
+      --initial-cluster-state=new
+      --initial-cluster-token=patroni
 
-  haproxy:
-    image: haproxy:3.1
-    container_name: haproxy
-    ports:
-      - "5000:5000"
+  etcd3:
+    image: quay.io/coreos/etcd:v3.5.18
+    container_name: etcd3
+    hostname: etcd3
+    command: >
+      etcd
+      --name=etcd3
+      --data-dir=/etcd-data
+      --listen-peer-urls=http://0.0.0.0:2380
+      --listen-client-urls=http://0.0.0.0:2379
+      --advertise-client-urls=http://etcd3:2379
+      --initial-advertise-peer-urls=http://etcd3:2380
+      --initial-cluster=etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380
+      --initial-cluster-state=new
+      --initial-cluster-token=patroni
