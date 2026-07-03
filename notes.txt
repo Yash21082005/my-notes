@@ -1,1 +1,9 @@
-Hi Sir, for the local PostgreSQL HA POC, should I install PostgreSQL, Patroni, HAProxy, PgBouncer and etcd directly on Windows, or is there a preferred setup you'd like me to use, such as Docker Desktop or a Virtual Machine?
+mkdir patroni1
+mkdir patroni2
+mkdir patroni3
+
+mkdir haproxy
+
+mkdir etcd1
+mkdir etcd2
+mkdir etcd3
