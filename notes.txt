@@ -1,51 +1,40 @@
-services:
-
-  etcd1:
-    image: quay.io/coreos/etcd:v3.5.18
-    container_name: etcd1
-    hostname: etcd1
-    command: >
-      etcd
-      --name=etcd1
-      --data-dir=/etcd-data
-      --listen-peer-urls=http://0.0.0.0:2380
-      --listen-client-urls=http://0.0.0.0:2379
-      --advertise-client-urls=http://etcd1:2379
-      --initial-advertise-peer-urls=http://etcd1:2380
-      --initial-cluster=etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380
-      --initial-cluster-state=new
-      --initial-cluster-token=patroni
+  patroni1:
+    build: .
+    container_name: patroni1
+    hostname: patroni1
+    depends_on:
+      - etcd1
+      - etcd2
+      - etcd3
+    volumes:
+      - ./patroni1/patroni.yml:/etc/patroni.yml
     ports:
-      - "2379:2379"
+      - "5432:5432"
+      - "8008:8008"
+    command: patroni /etc/patroni.yml
 
-  etcd2:
-    image: quay.io/coreos/etcd:v3.5.18
-    container_name: etcd2
-    hostname: etcd2
-    command: >
-      etcd
-      --name=etcd2
-      --data-dir=/etcd-data
-      --listen-peer-urls=http://0.0.0.0:2380
-      --listen-client-urls=http://0.0.0.0:2379
-      --advertise-client-urls=http://etcd2:2379
-      --initial-advertise-peer-urls=http://etcd2:2380
-      --initial-cluster=etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380
-      --initial-cluster-state=new
-      --initial-cluster-token=patroni
+  patroni2:
+    build: .
+    container_name: patroni2
+    hostname: patroni2
+    depends_on:
+      - patroni1
+    volumes:
+      - ./patroni2/patroni.yml:/etc/patroni.yml
+    ports:
+      - "5433:5432"
+      - "8009:8008"
+    command: patroni /etc/patroni.yml
 
-  etcd3:
-    image: quay.io/coreos/etcd:v3.5.18
-    container_name: etcd3
-    hostname: etcd3
-    command: >
-      etcd
-      --name=etcd3
-      --data-dir=/etcd-data
-      --listen-peer-urls=http://0.0.0.0:2380
-      --listen-client-urls=http://0.0.0.0:2379
-      --advertise-client-urls=http://etcd3:2379
-      --initial-advertise-peer-urls=http://etcd3:2380
-      --initial-cluster=etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380
-      --initial-cluster-state=new
-      --initial-cluster-token=patroni
+  patroni3:
+    build: .
+    container_name: patroni3
+    hostname: patroni3
+    depends_on:
+      - patroni1
+    volumes:
+      - ./patroni3/patroni.yml:/etc/patroni.yml
+    ports:
+      - "5434:5432"
+      - "8010:8008"
+    command: patroni /etc/patroni.yml
