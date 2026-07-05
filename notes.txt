@@ -1,1 +1,1 @@
-pg_dump -h localhost -p 5432 -U postgres -d migration_test -F c -f "C:\Users\50126097\migration_test.backup"
+dir C:\Users\50126097\migration_test.backup
