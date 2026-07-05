@@ -1,2 +1,1 @@
-docker exec -it demo-patroni3 psql -U postgres -c "\l"
-"C:\Program Files\PostgreSQL\17\bin\pg_restore.exe" -h localhost -p 5432 -U postgres -d migration_test "C:\patroni\migration_test.backup"
+& "C:\Program Files\PostgreSQL\17\bin\pg_restore.exe" -h localhost -p 5432 -U postgres -d migration_test "C:\patroni\migration_test.backup"
