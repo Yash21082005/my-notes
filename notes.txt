@@ -1,1 +1,1 @@
-TimeZone.setDefault(TimeZone.getTimeZone("Asia/Kolkata"));
+"C:\Program Files\PostgreSQL\17\bin\pg_dump.exe" --version
