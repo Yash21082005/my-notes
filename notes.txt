@@ -1,4 +1,1 @@
-docker exec -it demo-patroni1 psql -U postgres -d migration_test
-
-
-\dt
+"C:\Program Files\PostgreSQL\17\bin\psql.exe" -h localhost -p 5000 -U postgres -d migration_test
