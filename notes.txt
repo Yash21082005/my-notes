@@ -1,1 +1,1 @@
-"C:\Program Files\PostgreSQL\17\bin\pg_dump.exe" -h localhost -p 5432 -U postgres -d migration_test -Fc -f "C:\Users\20126097\migration_test.backup"
+"C:\Program Files\PostgreSQL\17\bin\pg_dump.exe" -h localhost -p 5432 -U postgres -d migration_test -Fc -f "C:\patroni\migration_test.backup"
