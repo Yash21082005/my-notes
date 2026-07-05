@@ -1,1 +1,1 @@
-"C:\Program Files\PostgreSQL\17\bin\psql.exe" -h localhost -p 5000 -U postgres -d migration_test
+TimeZone.setDefault(TimeZone.getTimeZone("Asia/Kolkata"));
