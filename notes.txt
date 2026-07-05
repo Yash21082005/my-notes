@@ -1,1 +1,1 @@
-dir migration_test.backup
+docker exec -it demo-patroni3 psql -U postgres -c "\l"
