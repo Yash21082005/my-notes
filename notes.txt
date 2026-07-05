@@ -1,1 +1,17 @@
-dir C:\Users\50126097\migration_test.backup
+docker cp C:\patroni\migration_test.backup demo-patroni1:/tmp/migration_test.backup
+
+
+docker exec -it demo-patroni1 psql -U postgres
+
+CREATE DATABASE migration_test;
+
+\q
+
+docker exec demo-patroni1 pg_restore -U postgres -d migration_test /tmp/migration_test.backup
+
+
+docker exec demo-patroni1 psql -U postgres -d migration_test
+
+
+\dt
+
