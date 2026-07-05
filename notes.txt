@@ -1,1 +1,9 @@
 dir "C:\Program Files\PostgreSQL"
+
+dir "C:\Program Files\PostgreSQL\17"
+
+dir "C:\Program Files\PostgreSQL\17\bin"
+
+where pg_dump
+
+dir "C:\Program Files\PostgreSQL\17\bin"
