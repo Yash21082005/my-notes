@@ -1,4 +1,38 @@
-SELECT column_name
-FROM information_schema.columns
-WHERE table_name = 'tbl_visit_in_out_details'
-ORDER BY ordinal_position;
+INSERT INTO tbl_visit_in_out_details (
+    appointment_id,
+    client_check_in_id,
+    client_id,
+    client_image_uuid,
+    client_location_uuid,
+    company_code,
+    created_by,
+    created_date_time,
+    is_feedback_submitted,
+    is_money_collected,
+    lat_long,
+    updated_by,
+    updated_date_time,
+    user_id,
+    visit_in_out_flag,
+    visit_in_time,
+    visit_out_time
+)
+VALUES (
+    1001,
+    2001,
+    'CLIENT001',
+    'IMG001',
+    'LOC001',
+    'LTF',
+    'admin',
+    NOW(),
+    'N',
+    'N',
+    '19.0760,72.8777',
+    'admin',
+    NOW(),
+    'USER001',
+    'IN',
+    NOW(),
+    NOW()
+);
