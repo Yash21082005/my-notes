@@ -1,11 +1,3 @@
-@Value("${leader.datasource.url}")
-private String leaderDatasourceUrl;
-
-@Value("${replica.datasource.url}")
-private String replicaDatasourceUrl;
-
-@Value("${leader.datasource.username}")
-private String leaderDatasourceUsername;
-
-@Value("${replica.datasource.username}")
-private String replicaDatasourceUsername;
+import java.util.HashMap;
+import java.util.Map;
+import org.springframework.context.annotation.Primary;
