@@ -1,5 +1,1 @@
-import org.springframework.context.ApplicationContext;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
-
-import com.ltfs.brake.collections.aspect.RoutingDatasourceAspect;
+@Around("execution(* com.ltfs.brake.collections.service..*(..))")
