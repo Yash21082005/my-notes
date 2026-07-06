@@ -1,3 +1,7 @@
-docker exec -it demo-patroni2 psql -U postgres -d migration_test
+leader.datasource.url=jdbc:postgresql://localhost:5000/migration_test
+leader.datasource.username=postgres
+leader.datasource.password=postgres
 
-SELECT * FROM replication_test;
+replica.datasource.url=jdbc:postgresql://localhost:5001/migration_test
+replica.datasource.username=postgres
+replica.datasource.password=postgres
