@@ -1,11 +1,19 @@
 package com.ltfs.brake.collections.datasource;
 
-import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
+public class BrakeDataSourceContext {
 
-public class BrakeRoutingDataSource extends AbstractRoutingDataSource {
+    private static final ThreadLocal<BrakeDataSourceType> CONTEXT =
+            new ThreadLocal<>();
 
-    @Override
-    protected Object determineCurrentLookupKey() {
-        return BrakeDataSourceContext.get();
+    public static void set(BrakeDataSourceType type) {
+        CONTEXT.set(type);
+    }
+
+    public static BrakeDataSourceType get() {
+        return CONTEXT.get();
+    }
+
+    public static void clear() {
+        CONTEXT.remove();
     }
 }
