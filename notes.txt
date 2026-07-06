@@ -1,1 +1,5 @@
-docker exec -it demo-patroni3 psql -U postgres -d migration_test
+CREATE TABLE replication_test (
+    id SERIAL PRIMARY KEY,
+    message TEXT,
+    created_at TIMESTAMP DEFAULT NOW()
+);
