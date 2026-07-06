@@ -1,1 +1,3 @@
+docker exec -it demo-patroni2 psql -U postgres -d migration_test
+
 SELECT * FROM replication_test;
