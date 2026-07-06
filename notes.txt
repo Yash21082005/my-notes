@@ -1,36 +1,11 @@
-@Bean(name = "replicaDataSource")
-public DataSource replicaDataSource() {
+package com.ltfs.brake.collections.datasource;
 
-    return DataSourceBuilder.create()
-            .url(replicaDatasourceUrl)
-            .username(replicaDatasourceUsername)
-            .password("postgres")
-            .driverClassName(driverClassName)
-            .build();
-}
+import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
-@Bean
-@Primary
-public DataSource routingDataSource() {
+public class BrakeRoutingDataSource extends AbstractRoutingDataSource {
 
-    BrakeRoutingDataSource routingDataSource =
-            new BrakeRoutingDataSource();
-
-    Map<Object, Object> targetDataSources =
-            new HashMap<>();
-
-    targetDataSources.put(
-            BrakeDataSourceType.LEADER,
-            leaderDataSource());
-
-    targetDataSources.put(
-            BrakeDataSourceType.REPLICA,
-            replicaDataSource());
-
-    routingDataSource.setTargetDataSources(targetDataSources);
-
-    routingDataSource.setDefaultTargetDataSource(
-            leaderDataSource());
-
-    return routingDataSource;
+    @Override
+    protected Object determineCurrentLookupKey() {
+        return BrakeDataSourceContext.get();
+    }
 }
