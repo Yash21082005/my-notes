@@ -1,4 +1,58 @@
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-aop</artifactId>
-</dependency>
+package com.ltfs.brake.collections.aspect;
+
+import com.ltfs.brake.collections.datasource.BrakeDataSourceContext;
+import com.ltfs.brake.collections.datasource.BrakeDatasourceType;
+import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
+
+@Slf4j
+@Aspect
+@Component
+@Order(-1)
+public class RoutingDataSourceAspect {
+
+    @Around("execution(* com.ltfs.brake.collections.service..*.get*(..)) || " +
+            "execution(* com.ltfs.brake.collections.service..*.find*(..)) || " +
+            "execution(* com.ltfs.brake.collections.service..*.fetch*(..)) || " +
+            "execution(* com.ltfs.brake.collections.service..*.read*(..)) || " +
+            "execution(* com.ltfs.brake.collections.service..*.list*(..))")
+    public Object routeReadMethods(ProceedingJoinPoint joinPoint) throws Throwable {
+
+        try {
+            BrakeDataSourceContext.set(BrakeDatasourceType.REPLICA);
+
+            log.info("Using REPLICA for {}",
+                    joinPoint.getSignature().toShortString());
+
+            return joinPoint.proceed();
+
+        } finally {
+            BrakeDataSourceContext.clear();
+        }
+    }
+
+    @Around("execution(* com.ltfs.brake.collections.service..*.save*(..)) || " +
+            "execution(* com.ltfs.brake.collections.service..*.create*(..)) || " +
+            "execution(* com.ltfs.brake.collections.service..*.insert*(..)) || " +
+            "execution(* com.ltfs.brake.collections.service..*.update*(..)) || " +
+            "execution(* com.ltfs.brake.collections.service..*.delete*(..))")
+    public Object routeWriteMethods(ProceedingJoinPoint joinPoint) throws Throwable {
+
+        try {
+            BrakeDataSourceContext.set(BrakeDatasourceType.LEADER);
+
+            log.info("Using LEADER for {}",
+                    joinPoint.getSignature().toShortString());
+
+            return joinPoint.proceed();
+
+        } finally {
+            BrakeDataSourceContext.clear();
+        }
+    }
+
+}
