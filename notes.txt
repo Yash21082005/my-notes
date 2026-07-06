@@ -1,2 +1,10 @@
-import com.ltfs.brake.collections.datasource.BrakeDataSourceType;
-import com.ltfs.brake.collections.datasource.BrakeRoutingDataSource;
+@Bean(name = "leaderDataSource")
+public DataSource leaderDataSource() {
+
+    return DataSourceBuilder.create()
+            .url(leaderDatasourceUrl)
+            .username(leaderDatasourceUsername)
+            .password("postgres")
+            .driverClassName(driverClassName)
+            .build();
+}
