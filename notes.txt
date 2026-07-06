@@ -1,1 +1,3 @@
-SELECT * FROM tbl_visit_in_out_details LIMIT 10;
+\d tbl_address_details
+
+\d tbl_visit_in_out_details
