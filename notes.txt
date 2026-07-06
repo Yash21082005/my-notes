@@ -1,6 +1,5 @@
-@Bean
-CommandLineRunner test(ApplicationContext context) {
-    return args -> {
-        System.out.println("Aspect Bean = " + context.getBean(RoutingDatasourceAspect.class));
-    };
-}
+import org.springframework.context.ApplicationContext;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
+
+import com.ltfs.brake.collections.aspect.RoutingDatasourceAspect;
