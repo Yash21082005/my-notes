@@ -1,11 +1,11 @@
-package com.ltfs.brake.collections.datasource;
+@Value("${leader.datasource.url}")
+private String leaderDatasourceUrl;
 
-import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
+@Value("${replica.datasource.url}")
+private String replicaDatasourceUrl;
 
-public class BrakeRoutingDataSource extends AbstractRoutingDataSource {
+@Value("${leader.datasource.username}")
+private String leaderDatasourceUsername;
 
-    @Override
-    protected Object determineCurrentLookupKey() {
-        return BrakeDataSourceContext.getDataSource();
-    }
-}
+@Value("${replica.datasource.username}")
+private String replicaDatasourceUsername;
