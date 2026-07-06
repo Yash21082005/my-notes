@@ -1,2 +1,1 @@
-INSERT INTO replication_test (message)
-VALUES ('Replication Test');
+docker exec -it demo-patroni1 psql -U postgres -d migration_test
