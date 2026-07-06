@@ -1,9 +1,3 @@
-@Override
-protected Object determineCurrentLookupKey() {
+System.out.println("######## REPLICA ########");
 
-    BrakeDatasourceType type = BrakeDataSourceContext.get();
-
-    log.info("Current datasource = {}", type);
-
-    return type;
-}
+System.out.println("######## LEADER ########");
