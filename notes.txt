@@ -1,3 +1,6 @@
-System.out.println("######## REPLICA ########");
-System.out.println("######## LEADER ########");
-System.out.println("CURRENT DATASOURCE = " + type);
+@Bean
+CommandLineRunner test(ApplicationContext context) {
+    return args -> {
+        System.out.println("Aspect Bean = " + context.getBean(RoutingDatasourceAspect.class));
+    };
+}
