@@ -1,5 +1,2 @@
-CREATE TABLE replication_test (
-    id SERIAL PRIMARY KEY,
-    message TEXT,
-    created_at TIMESTAMP DEFAULT NOW()
-);
+INSERT INTO replication_test (message)
+VALUES ('Replication Test');
