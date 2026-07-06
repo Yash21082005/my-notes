@@ -1,34 +1,4 @@
-INSERT INTO tbl_visit_in_out_details (
-    appointment_id,
-    appointment_check_id,
-    client_image,
-    client_name,
-    collection_uuid,
-    company_code,
-    created_by,
-    created_date,
-    is_money_collected,
-    latitude,
-    longitude,
-    updated_by,
-    updated_date,
-    visit_in_out_flag,
-    visit_out_time
-)
-VALUES (
-    1001,
-    2001,
-    'client.jpg',
-    'Yash Test',
-    '123e4567-e89b-12d3-a456-426614174000',
-    'LTF',
-    'admin',
-    NOW(),
-    'N',
-    '19.0760',
-    '72.8777',
-    'admin',
-    NOW(),
-    'IN',
-    NOW()
-);
+SELECT column_name
+FROM information_schema.columns
+WHERE table_name = 'tbl_visit_in_out_details'
+ORDER BY ordinal_position;
