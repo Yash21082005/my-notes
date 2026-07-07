@@ -1,3 +1,4 @@
-SELECT trigger_name
-FROM information_schema.triggers
-WHERE event_object_table = 'tbl_visit_in_out_details';
+SELECT conname,
+       pg_get_constraintdef(oid)
+FROM pg_constraint
+WHERE conrelid = 'tbl_visit_in_out_details'::regclass;
