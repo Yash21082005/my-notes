@@ -1,36 +1,3 @@
-INSERT INTO tbl_visit_in_out_details (
-appointment_id,
-appointment_check_in_id,
-client_id,
-client_image_uuid,
-client_location_uuid,
-company_code,
-created_by,
-created_date_time,
-is_feedback_submitted,
-is_money_collected,
-lat_long,
-updated_by,
-updated_date_time,
-user_id,
-visit_in_out_flag,
-visit_out_time
-)
-VALUES (
-1001,
-2001,
-'CLIENT001',
-'123e4567-e89b-12d3-a456-426614174000',
-'123e4567-e89b-12d3-a456-426614174001',
-'LTF',
-'ADMIN',
-NOW(),
-'N',
-'N',
-'19.0760,72.8777',
-'ADMIN',
-NOW(),
-'U001',
-'IN',
-NOW()
-);
+SELECT column_name
+FROM information_schema.columns
+WHERE table_name = 'tbl_visit_in_out_details';
