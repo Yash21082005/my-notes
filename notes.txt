@@ -1,5 +1,3 @@
-SELECT attname
-FROM pg_attribute
-WHERE attrelid = 'tbl_visit_in_out_details'::regclass
-AND attnum > 0
-AND NOT attisdropped;
+INSERT INTO tbl_visit_in_out_details
+(appointment_id, client_check_in_id)
+VALUES (1001, 2001);
