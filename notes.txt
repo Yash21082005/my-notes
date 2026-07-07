@@ -1,2 +1,6 @@
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+private static final Logger log = LoggerFactory.getLogger(RoutingDatasourceAspect.class);
+
+
+log.info("Using REPLICA datasource");
+
+log.info("Using LEADER datasource");
