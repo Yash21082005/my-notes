@@ -1,3 +1,3 @@
-SELECT lan_no
+SELECT *
 FROM tbl_visit_in_out_details
-LIMIT 1;
+LIMIT 0;
