@@ -1,6 +1,11 @@
-private static final Logger log = LoggerFactory.getLogger(RoutingDatasourceAspect.class);
+I completed the Leader-Replica database routing implementation for the Collections module.
+I configured write APIs to use the Leader database and read APIs to use the Replica database.
+I tested the routing and confirmed from the logs that it is switching to the correct database.
+I set up and verified the Patroni cluster and confirmed the Leader and Replica nodes are working.
+I fixed local setup issues like Redis and database connection so the application runs successfully.
+While testing the Save Appointment API, I found that the request reaches the Leader database, but it fails with "Cannot execute INSERT in a read-only transaction."
+I investigated the issue and the remaining task is to identify why the transaction is becoming read-only even though the routing is correct.
 
+If your manager asks "What's pending?", you can simply say:
 
-log.info("Using REPLICA datasource");
-
-log.info("Using LEADER datasource");
+"The routing is working correctly. I'm now debugging the transaction configuration because write operations are still being treated as read-only."
