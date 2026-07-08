@@ -1,13 +1,15 @@
-@Around(
-"!execution(* com.ltfs.brake.collections.service..*.save*(..)) && " +
-"!execution(* com.ltfs.brake.collections.service..*.create*(..)) && " +
-"!execution(* com.ltfs.brake.collections.service..*.insert*(..)) && " +
-"!execution(* com.ltfs.brake.collections.service..*.update*(..)) && " +
-"!execution(* com.ltfs.brake.collections.service..*.delete*(..)) && " +
-"execution(* com.ltfs.brake.collections.service..*(..))"
-)
 
+I am working on a Spring Boot project where I am implementing PostgreSQL High Availability (HA) with read/write splitting.
 
+My objective is:
+
+- All INSERT, UPDATE, and DELETE operations should always use the Leader (Primary) PostgreSQL database.
+- All SELECT operations should always use the Replica PostgreSQL database.
+- I am implementing this using multiple DataSources, AbstractRoutingDataSource, Spring AOP, and @Transactional.
+
+I want a production-ready implementation where write operations are always routed to the Leader and read operations are always routed to the Replica without affecting existing functionality.
+
+I will now share my code and any errors I encounter. Please analyze the code, identify the root cause of the issue, and provide the exact fix while keeping the read/write routing architecture intact.
 
 I completed the Leader-Replica database routing implementation for the Collections module.
 I configured write APIs to use the Leader database and read APIs to use the Replica database.
