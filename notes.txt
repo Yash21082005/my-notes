@@ -1,4 +1,23 @@
+We have successfully implemented and tested PostgreSQL read/write routing in our Spring Boot application.
 
+Current status:
+- Write operations (INSERT/UPDATE/DELETE) are routed to the Leader (Primary) database.
+- Read operations (SELECT) are routed to the Replica database.
+- Routing is implemented using Spring AOP, AbstractRoutingDataSource, and multiple DataSources.
+- Leader and Replica routing is working correctly.
+
+Now I want to implement the next High Availability (HA) feature.
+
+The next objective is:
+
+1. Support multiple Replica databases (Replica1 and Replica2).
+2. Load balance all read requests between Replica1 and Replica2.
+3. If one Replica goes down, automatically route reads to the remaining healthy Replica.
+4. Keep all write operations going only to the Leader database.
+5. The implementation should be production-ready and follow Spring Boot best practices.
+6. Do not break the existing read/write routing implementation.
+
+Guide me step by step. First analyze my existing implementation, then tell me which classes need to be modified and why. Do not jump directly to code. Explain the architecture first, then implement it one step at a time.
 I am working on a Spring Boot project where I am implementing PostgreSQL High Availability (HA) with read/write splitting.
 
 My objective is:
