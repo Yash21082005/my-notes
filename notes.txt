@@ -1,3 +1,53 @@
+
+1. Load balancing across multiple replicas ⭐ (Next task)
+Right now you likely have:
+Leader → 1 Primary
+Replica → 1 Replica
+Next, implement:
+Leader → Primary
+Replica → Replica1 + Replica2
+Read requests should be distributed (Round Robin/Random/Least Connections) between Replica1 and Replica2.
+This is a core HA feature.
+2. Automatic failover
+If the Leader goes down:
+Patroni elects a new Leader.
+Application should continue working without code changes.
+Verify writes automatically go to the new Leader.
+3. Replica failover
+If one replica goes down:
+Reads should automatically use the remaining healthy replica.
+No application restart.
+4. Health checks
+Configure health checks so unhealthy databases are removed from routing automatically.
+5. Connection pooling
+Configure separate HikariCP pools for Leader and Replica(s):
+maxPoolSize
+minimumIdle
+connectionTimeout
+idleTimeout
+6. Transaction handling
+Ensure:
+@Transactional(readOnly = true) → Replica
+@Transactional (write) → Leader
+Nested transactions behave correctly.
+7. Monitoring
+Expose metrics:
+Current Leader
+Replica lag
+Active connections
+Pool usage
+Database health
+8. Integration with HAProxy/PgBouncer (Production)
+Instead of hardcoding database URLs, connect through:
+HAProxy
+PgBouncer
+HAProxy decides which database is Leader and which replicas are available.
+
+
+
+
+
+
 We have successfully implemented and tested PostgreSQL read/write routing in our Spring Boot application.
 
 Current status:
