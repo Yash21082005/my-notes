@@ -1,3 +1,18 @@
+Now I want to validate my High Availability implementation against enterprise production standards.
+
+Please review whether my implementation actually supports:
+1. Multiple replicas.
+2. Read load balancing across replicas.
+3. Automatic replica failover.
+4. Automatic leader failover after primary failure.
+5. HAProxy/PgBouncer integration.
+6. Patroni-based leader election.
+7. End-to-end failover testing.
+
+For every item, tell me whether it is already implemented in my project or not. If something is missing, guide me step by step to implement it without changing the existing read/write routing.
+
+
+
 
 1. Load balancing across multiple replicas ⭐ (Next task)
 Right now you likely have:
