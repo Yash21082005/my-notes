@@ -1,3 +1,14 @@
+@Around(
+"!execution(* com.ltfs.brake.collections.service..*.save*(..)) && " +
+"!execution(* com.ltfs.brake.collections.service..*.create*(..)) && " +
+"!execution(* com.ltfs.brake.collections.service..*.insert*(..)) && " +
+"!execution(* com.ltfs.brake.collections.service..*.update*(..)) && " +
+"!execution(* com.ltfs.brake.collections.service..*.delete*(..)) && " +
+"execution(* com.ltfs.brake.collections.service..*(..))"
+)
+
+
+
 I completed the Leader-Replica database routing implementation for the Collections module.
 I configured write APIs to use the Leader database and read APIs to use the Replica database.
 I tested the routing and confirmed from the logs that it is switching to the correct database.
