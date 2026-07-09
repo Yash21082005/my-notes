@@ -1,3 +1,7 @@
+
+https://drive.google.com/file/d/1dlwehCHLnOy4c9iSdhWiQQ5TxdzjEDzu/view?usp=drivesdk
+
+
 Now I want to validate my High Availability implementation against enterprise production standards.
 
 Please review whether my implementation actually supports:
