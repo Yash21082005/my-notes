@@ -3,111 +3,84 @@ https://drive.google.com/file/d/1OOB6iFsybHiRbhevHLepU4tdCUjakuYw/view?usp=drive
 https://drive.google.com/file/d/1dlwehCHLnOy4c9iSdhWiQQ5TxdzjEDzu/view?usp=drivesdk
 
 
-Now I want to validate my High Availability implementation against enterprise production standards.
+Here's a structured list you can use.
 
-Please review whether my implementation actually supports:
-1. Multiple replicas.
-2. Read load balancing across replicas.
-3. Automatic replica failover.
-4. Automatic leader failover after primary failure.
-5. HAProxy/PgBouncer integration.
-6. Patroni-based leader election.
-7. End-to-end failover testing.
+1. Understand the overall architecture
 
-For every item, tell me whether it is already implemented in my project or not. If something is missing, guide me step by step to implement it without changing the existing read/write routing.
+Start with:
 
+"Can you explain the current PostgreSQL HA architecture and the role of NGINX in it?"
 
+Then ask:
 
+How many PostgreSQL nodes do we have?
+Is it one Primary and multiple Replicas?
+Which replication method are we using (streaming replication, logical replication, etc.)?
+Are we using Patroni or another HA solution?
+2. Ask specifically about NGINX
 
-1. Load balancing across multiple replicas ⭐ (Next task)
-Right now you likely have:
-Leader → 1 Primary
-Replica → 1 Replica
-Next, implement:
-Leader → Primary
-Replica → Replica1 + Replica2
-Read requests should be distributed (Round Robin/Random/Least Connections) between Replica1 and Replica2.
-This is a core HA feature.
-2. Automatic failover
-If the Leader goes down:
-Patroni elects a new Leader.
-Application should continue working without code changes.
-Verify writes automatically go to the new Leader.
-3. Replica failover
-If one replica goes down:
-Reads should automatically use the remaining healthy replica.
-No application restart.
-4. Health checks
-Configure health checks so unhealthy databases are removed from routing automatically.
-5. Connection pooling
-Configure separate HikariCP pools for Leader and Replica(s):
-maxPoolSize
-minimumIdle
-connectionTimeout
-idleTimeout
-6. Transaction handling
-Ensure:
-@Transactional(readOnly = true) → Replica
-@Transactional (write) → Leader
-Nested transactions behave correctly.
-7. Monitoring
-Expose metrics:
-Current Leader
-Replica lag
-Active connections
-Pool usage
-Database health
-8. Integration with HAProxy/PgBouncer (Production)
-Instead of hardcoding database URLs, connect through:
-HAProxy
-PgBouncer
-HAProxy decides which database is Leader and which replicas are available.
+This is the most important part.
 
+Ask:
 
+"How does NGINX know whether a query is a read or a write?"
 
+Then follow up with:
 
+Does NGINX inspect SQL queries?
+Or are there separate endpoints for reads and writes?
+Does the application send read traffic to one endpoint and write traffic to another?
+Does NGINX only load balance connections, or does it perform query routing?
+3. Ask about failover
+If the Primary database goes down, what happens?
+Who elects the new Primary?
+Does NGINX automatically detect the new Primary?
+How long does failover usually take?
+Does the application need any configuration changes after failover?
+4. Ask about Replicas
+How many replicas do we have?
+Are all read requests distributed among replicas?
+What load-balancing algorithm does NGINX use (Round Robin, Least Connections, etc.)?
+If one replica fails, what happens?
+5. Ask about consistency
+What happens if a user writes data and immediately performs a read?
+Can the replica return stale data because of replication lag?
+How do we handle that scenario?
+6. Ask about the application
+Does the Spring Boot application know about the Primary and Replicas?
+Does it use one database URL or multiple URLs?
+Where is the routing configured—in the application or in the infrastructure?
+7. Ask about monitoring
+How do you monitor replication lag?
+How do you know if a replica is unhealthy?
+Which tools or dashboards do you use?
+8. Ask about NGINX configuration
+Can you show me the NGINX configuration used for PostgreSQL?
+How are the upstream servers configured?
+How does health checking work?
+Questions that will impress them
+"How do we prevent reads from going to the Primary unnecessarily?"
+"How do we ensure no writes ever reach a Replica?"
+"What happens to existing client connections during failover?"
+"How is replication lag monitored, and what's considered acceptable?"
+"What are the biggest challenges you've faced with this setup?"
+One thing to avoid
 
+Don't say:
 
-We have successfully implemented and tested PostgreSQL read/write routing in our Spring Boot application.
+"ChatGPT told me NGINX cannot do this."
 
-Current status:
-- Write operations (INSERT/UPDATE/DELETE) are routed to the Leader (Primary) database.
-- Read operations (SELECT) are routed to the Replica database.
-- Routing is implemented using Spring AOP, AbstractRoutingDataSource, and multiple DataSources.
-- Leader and Replica routing is working correctly.
+Instead, ask:
 
-Now I want to implement the next High Availability (HA) feature.
+"Can you help me understand how our setup handles read/write routing? I'd like to understand where that decision is made."
 
-The next objective is:
+That keeps the discussion collaborative and lets them explain the specifics of your company's architecture.
 
-1. Support multiple Replica databases (Replica1 and Replica2).
-2. Load balance all read requests between Replica1 and Replica2.
-3. If one Replica goes down, automatically route reads to the remaining healthy Replica.
-4. Keep all write operations going only to the Leader database.
-5. The implementation should be production-ready and follow Spring Boot best practices.
-6. Do not break the existing read/write routing implementation.
+Take a notebook and write down:
+Architecture diagram
+Components involved (NGINX, Patroni, PostgreSQL, etc.)
+Read request flow
+Write request flow
+Failover flow
 
-Guide me step by step. First analyze my existing implementation, then tell me which classes need to be modified and why. Do not jump directly to code. Explain the architecture first, then implement it one step at a time.
-I am working on a Spring Boot project where I am implementing PostgreSQL High Availability (HA) with read/write splitting.
-
-My objective is:
-
-- All INSERT, UPDATE, and DELETE operations should always use the Leader (Primary) PostgreSQL database.
-- All SELECT operations should always use the Replica PostgreSQL database.
-- I am implementing this using multiple DataSources, AbstractRoutingDataSource, Spring AOP, and @Transactional.
-
-I want a production-ready implementation where write operations are always routed to the Leader and read operations are always routed to the Replica without affecting existing functionality.
-
-I will now share my code and any errors I encounter. Please analyze the code, identify the root cause of the issue, and provide the exact fix while keeping the read/write routing architecture intact.
-
-I completed the Leader-Replica database routing implementation for the Collections module.
-I configured write APIs to use the Leader database and read APIs to use the Replica database.
-I tested the routing and confirmed from the logs that it is switching to the correct database.
-I set up and verified the Patroni cluster and confirmed the Leader and Replica nodes are working.
-I fixed local setup issues like Redis and database connection so the application runs successfully.
-While testing the Save Appointment API, I found that the request reaches the Leader database, but it fails with "Cannot execute INSERT in a read-only transaction."
-I investigated the issue and the remaining task is to identify why the transaction is becoming read-only even though the routing is correct.
-
-If your manager asks "What's pending?", you can simply say:
-
-"The routing is working correctly. I'm now debugging the transaction configuration because write operations are still being treated as read-only."
+Once you're back from the meeting, send me your notes (even rough ones or a photo of the whiteboard), and I'll help you interpret the architecture and explain why each component is there.
